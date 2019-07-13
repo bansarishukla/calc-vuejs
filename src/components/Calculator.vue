@@ -1,36 +1,21 @@
 <template>
-  <div class = "calculator">
-    <div class="display">{{ current || '0'}}</div>
-    <!-- <div class="btn" @click="clear">C</div>
-    <div class="btn" @click="back"><</div>
-    <div class="btn" @click="percentage">%</div>
-    <div class="btn" @click="divide">÷</div>
-    <div class="btn" @click="append(9)">9</div>
-    <div class="btn" @click="append(8)">8</div>
-    <div class="btn" @click="append(7)">7</div>
-    <div class="btn" @click="mul">×</div>
-    <div class="btn" @click="append(4)">4</div>
-    <div class="btn" @click="append(5)">5</div>
-    <div class="btn" @click="append(6)">6</div>
-    <div class="btn" @click="sub">-</div>
-    <div class="btn" @click="append(1)">1</div>
-    <div class="btn" @click="append(2)">2</div>
-    <div class="btn" @click="append(3)">3</div>
-    <div class="btn" @click="add">+</div>
-    <div class="btn zero" @click="append(0)">0</div>
-    <div class="btn" @click="dot">.</div>
-    <div class="btn" @click="equal">=</div> -->
-    <cal-button val="1" @append="append"></cal-button>
-    <cal-button val="2" @append="append"></cal-button>
-    <cal-button val="4" @append="append"></cal-button>
-    <cal-button val="5" @append="append"></cal-button>
-    <cal-button val="6" @append="append"></cal-button>
-    <cal-button val="7" @append="append"></cal-button>
-    <cal-button val="8" @append="append"></cal-button>
-    <cal-button val="9" @append="append"></cal-button>
-    <cal-button val="0" @append="append"></cal-button>
+  <div class="outerBox">
+    <div class = "calculator">
+      <div class="display">{{ current || '0'}}</div>
+      <div v-for="number in numbers" class="btn">
+        <cal-button :val="number" @append="append"></cal-button>
+      </div>
+      <div class="btn" @click="add">+</div>
+      <div class="btn" @click="dot">.</div>
+      <div class="btn" @click="percentage">%</div>
+      <div class="btn" @click="divide">÷</div>
+      <div class="btn" @click="mul">×</div>
+      <div class="btn" @click="sub">-</div>
+      <div class="btn equalto" @click="equal">=</div>
+      <div class="btn" @click="clear">C</div>
+      <div class="btn" @click="back"><</div>
 
-    <!-- <div class="btn" @click="back"><</div> -->
+    </div>
   </div>
 </template>
 
@@ -43,9 +28,12 @@ export default {
   data() {
     return {
         current: '',
+        displayValue : "",
         previous: null,
         operator: null,
-        operatorClick: false
+        operatorClick: false,
+        ansValue : null,
+        numbers: [9,8,7,6,5,4,3,2,1,0]
     }
   },
   methods: {
@@ -91,7 +79,7 @@ export default {
     equal() {
       this.current = this.operator(
         parseFloat(this.current),
-        parseFloat(this.previous)
+        parseFloat(this.previous),
       );
       this.previous = null;
     },
@@ -112,20 +100,32 @@ export default {
     grid-template-columns: repeat(4 , 1fr);
     grid-auto-rows: minmax(50px, auto);
     background-color: pink;
+    border: 1px solid dimgray;
+    border-radius: 4px;
   }
   .display {
     grid-column: 1 / 5;
-    background:lightgrey;
-    color: white;
-    padding: 15px;
+    display:block;
+    background-color: gainsboro;
+    padding:20px;
+    height:100px;
+    border-radius:10px;
     text-align: end;
-  }
-  .btn {
-    border: 5px solid white;
-    padding: 10px;
     font-weight: bold;
   }
-  .zero {
+  .btn {
+    border: 1px solid white;
+    font-weight: bold;
+    padding:  0 0 0 0;
+    padding: 15px;
+  }
+  .btn:hover {
+    background-color: black;
+    color: white;
+    font-weight: bold;
+  }
+  .equalto {
     grid-column: 1 / 3;
+
   }
 </style>

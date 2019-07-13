@@ -8,7 +8,9 @@
 export default {
   props:['val'],
   data () {
+    return {
 
+    }
   },
   methods: {
     onClick (val) {
@@ -19,9 +21,8 @@ export default {
 </script>
 
 <style>
-  .btn {
-    border: 5px solid white;
-    padding: 10px;
+  /* .btn {
+      border: 1px solid black ;
     font-weight: bold;
-  }
+  } */
 </style>
